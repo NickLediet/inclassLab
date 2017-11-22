@@ -18,18 +18,28 @@ class Car {
       this.renderer = renderer;
   
       // AddEvent Listener
-      this.imageElement.addEventListener("click", () => this.handleClick())
+      this.imageElement.addEventListener("click", () => this.update())
     }
   
     /**
      * Update the renderer with selected data
      */
-    handleClick() 
+    update() 
     {
+        // Remove any focused elements
+      const activeElements = document.querySelectorAll(".focusMini")
+      activeElements ? activeElements.forEach(el => {
+        el.classList.remove("focusMini")
+        el.classList.add("nonActive")
+      }) : null
+
+      this.imageElement.classList.add("focusMini")
+
       this.renderer.render({
         model : this.modelName,
         pricing : this.pricing,
         details : this.details
       })
     }
+    
   }

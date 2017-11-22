@@ -11,6 +11,7 @@
   // Access each carElement and create new Car object passing in renderer
   document.querySelectorAll(".thumbInfo img")
     .forEach((el, i) => {
+      i == 0 ? el.classList.add("focusMini") : null
       cars.push(new Car({
         modelName : carData[i].modelName,
         pricing : carData[i].price,
@@ -18,4 +19,6 @@
       }, el, renderer))
     });
 
+  //Initialize to current Element
+  cars[0].update();
  })();
