@@ -1,11 +1,7 @@
-// start with retrieving the elements from the page, and then adding event handling. then write the logic. refer to the seasons example / homework
-  (function () {
-   
 
-})();
 
 // TODO: Make a seperate file
-class Cars {
+class Car {
   /**
    * Constructor for creating a new car element
    * @param {String} modelName The model of the car
@@ -38,6 +34,34 @@ class Cars {
   }
 }
 
+class Renderer {
+  /**
+   * Handles rendering of the Car Data
+   * @param {HTMLElement} root the spot that the content is mounting
+   */
+  constructor(root)
+  {
+    this.root = root
+    
+    // Drill into the elements children and bind to them
+    this.model = root.querySelector(".modelName")
+    this.price = root.querySelector(".priceInfo")
+    this.details = root.querySelector(".modelDetails")
+  }
+  /**
+   * Updates the root with the car data
+   * @param {Object} carData the cardata
+   */
+  render(carData)
+  {
+    // Destructure data from carData object
+    const {model, pricing, detail} = carData
+    this.model.innerHTML = model
+    this.pricing = pricing
+    this.details = details
+
+  }
+}
 
 /**
  * TODO:
@@ -46,3 +70,9 @@ class Cars {
  *  - implement renderer 
  *  
  */
+
+ // start with retrieving the elements from the page, and then adding event handling. then write the logic. refer to the seasons example / homework
+ (function () {
+  // TODO: CREATE RENDER 
+  // TODO: CREATE CAR CLASS FOR EACH IMAGE, PASS IN RENDERER
+ })();
