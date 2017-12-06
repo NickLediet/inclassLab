@@ -26,30 +26,29 @@ class Car {
     /**
      * Update the renderer with selected data
      */
-    update() 
+    async update() 
     {
-      this.getData()
-        .then(data => {
-          const {modelName, pricing, modelDetails} = data
-          // Remove any focused elements
-          const activeElements = document.querySelectorAll(".focusMini")
-          activeElements ? activeElements.forEach(el => {
-            el.classList.remove("focusMini")
-            el.classList.add("nonActive")
-          }) : null
-
+      const {modelName, pricing, modelDetails} = await this.getData()
+      // Remove any focused elements
+      const activeElements = document.querySelectorAll(".focusMini")
+        activeElements.forEach(el => {
+          // Remove current active Classes
+          el.classList.remove("focusMini")
+          el.classList.add("nonActive")
+          
+          //Adding focused class  
           this.imageElement.classList.add("focusMini")
 
+          // Pass Data to the renderer
           this.renderer.render({
             model : modelName,
             pricing : pricing,
             details : modelDetails
           })
-        });
+        })
     }
 
-    getData()
-    {
+    getData(){
       return new Promise((resolve) => {
         fetch(`http://localhost:8888/inclasslab/includes/functions.php?carModel=${this.model}`)
             .then(data => resolve(data.json()))

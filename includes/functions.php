@@ -8,6 +8,7 @@ $db = "a3_cooperInfo";
 
 // Connection to Database instance
 $db_instance = mysqli_connect($host, $user, $pass, $db);
+// Setting up encoding as to avoid JSON not properly sending
 mysqli_set_charset($db_instance, 'utf8');
 
 // Echo if Err
