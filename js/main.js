@@ -12,13 +12,10 @@
   document.querySelectorAll(".thumbInfo img")
     .forEach((el, i) => {
       i == 0 ? el.classList.add("focusMini") : null
-      cars.push(new Car({
-        modelName : carData[i].modelName,
-        pricing : carData[i].price,
-        details : carData[i].details
-      }, el, renderer))
+      cars.push(new Car(el.id, el, renderer))
     });
 
+    
   //Initialize to current Element
   cars[0].update();
  })();
