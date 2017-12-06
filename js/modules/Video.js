@@ -1,29 +1,40 @@
 
 // Create Video Class
 class VideoPlayer  {
-    constructor({ videoPlayer, videoThumbs, volumeIndicator }){
+    constructor({ videoPlayer, videoThumbs, volumeIndicator, overlay }){
         this.videoPlayer = videoPlayer  
         this.videoThumbs = videoThumbs
         this.volumeIndicator = volumeIndicator 
-
+        this.overlay = overlay
         this.initListeners()
     }
     
     initListeners(){
         this.videoPlayer.addEventListener("mouseover", this.handleVolumeIndicatorOn.bind(this))
         this.videoPlayer.addEventListener("mouseout", this.handleVolumeIndicatorOff.bind(this))
-
+        this.overlay.querySelector('i').addEventListener("click", this.replayVideo.bind(this))
+        this.videoPlayer.addEventListener("ended", this.popOverlay.bind(this))
     }
 
     handleVolumeIndicatorOn() {
-        // console.log(this.videoPlayer);
+       
         this.videoPlayer.muted = false;
         this.volumeIndicator.classList.replace('fa-volume-off', 'fa-volume-up')
     }
+
      handleVolumeIndicatorOff() {
-        //  console.log(this.videoPlayer)
-        this.videoPlayer.muted = true;
+        this.videoPlayer.muted = true
         this.volumeIndicator.classList.replace('fa-volume-on', 'fa-volume-off')
+    }
+
+    popOverlay(){
+        this.overlay.classList.add("show-overlay")
+    }
+
+    replayVideo() {
+        this.videoPlayer.currentTime = 0
+        this.videoPlayer.play()
+        this.overlay.remove("show-overlay")
     }
 }
 
@@ -33,5 +44,6 @@ class VideoPlayer  {
 const video = new VideoPlayer({
     videoPlayer: document.querySelector('video'),
     videoThumbs : document.querySelector('.vid_thumb'),
-    volumeIndicator  : document.querySelector('.vol-indicator') 
+    volumeIndicator  : document.querySelector('.vol-indicator'),
+    overlay : document.querySelector('.vid-overlay')
 })
