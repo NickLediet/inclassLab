@@ -31,21 +31,21 @@ class Car {
       const {modelName, pricing, modelDetails} = await this.getData()
       // Remove any focused elements
       const activeElements = document.querySelectorAll(".focusMini")
-        activeElements.forEach(el => {
-          // Remove current active Classes
-          el.classList.remove("focusMini")
-          el.classList.add("nonActive")
-          
-          //Adding focused class  
-          this.imageElement.classList.add("focusMini")
+      activeElements.forEach(el => {
+        // Remove current active Classes
+        el.classList.remove("focusMini")
+        el.classList.add("nonActive")
+        
+      })
+      //Adding focused class  
+      this.imageElement.classList.add("focusMini")
 
-          // Pass Data to the renderer
-          this.renderer.render({
-            model : modelName,
-            pricing : pricing,
-            details : modelDetails
-          })
-        })
+      // Pass Data to the renderer
+      this.renderer.render({
+        model : modelName,
+        pricing : pricing,
+        details : modelDetails
+      })
     }
 
     getData(){
