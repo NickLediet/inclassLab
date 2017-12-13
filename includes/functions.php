@@ -44,3 +44,13 @@ if(isset($_GET['carModel'])){
 
 }
 
+if(isset($_GET['getVideos'])){
+    $query = "SELECT * FROM video";
+    $result = mysqli_query($db_instance, $query);
+    
+    $rows = array();
+    while($row = mysqli_fetch_assoc($result)){
+        $rows[] = $row;
+    }
+    echo json_encode($rows);
+}

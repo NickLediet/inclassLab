@@ -1,4 +1,3 @@
-
 // Create Video Class
 class VideoPlayer  {
     constructor({ videoPlayer, videoThumbs, volumeIndicator, overlay }){
@@ -14,6 +13,10 @@ class VideoPlayer  {
         this.videoPlayer.addEventListener("mouseout", this.handleVolumeIndicatorOff.bind(this))
         this.overlay.querySelector('i').addEventListener("click", this.replayVideo.bind(this))
         this.videoPlayer.addEventListener("ended", this.popOverlay.bind(this))
+
+        this.videoThumbs.forEach((el, i) => {
+            el.addEventListener("click", () => this.loadNewVideo(i))
+        })
     }
 
     handleVolumeIndicatorOn() {
@@ -36,6 +39,26 @@ class VideoPlayer  {
         this.videoPlayer.play()
         this.overlay.remove("show-overlay")
     }
+
+    fetchVideoThumbs(){
+        fetch('http://localhost:8888/inclasslab/includes/functions.php?getVideos')
+            .then(response => response.json())
+            .then(data => {
+                this.videoData = [...data]
+                this.videoThumbs.forEach((el, i ) => {
+                    console.log(el)
+                    el.querySelector('img').src = `./images/${data[i].placeholder}`
+                })
+            })
+            .catch(err => console.log(err))
+        }
+    loadNewVideo(index) {
+        console.log(this.videoData);
+        // loand and play video from source
+        this.videoPlayer.src = `video/${this.videoData[index].path}`
+        this.videoPlayer.load()
+        this.videoPlayer.play()
+    }
 }
 
 // Bootstrapping Code ...
@@ -43,7 +66,9 @@ class VideoPlayer  {
 // Taking the default values of the constructor.  We can also provide different mounting points
 const video = new VideoPlayer({
     videoPlayer: document.querySelector('video'),
-    videoThumbs : document.querySelector('.vid_thumb'),
+    videoThumbs : document.querySelectorAll('.vid-thumb'),
     volumeIndicator  : document.querySelector('.vol-indicator'),
     overlay : document.querySelector('.vid-overlay')
 })
+
+video.fetchVideoThumbs()
