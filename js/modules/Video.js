@@ -20,7 +20,6 @@ class VideoPlayer  {
     }
 
     handleVolumeIndicatorOn() {
-       
         this.videoPlayer.muted = false;
         this.volumeIndicator.classList.replace('fa-volume-off', 'fa-volume-up')
     }
@@ -52,8 +51,7 @@ class VideoPlayer  {
             })
             .catch(err => console.log(err))
         }
-    loadNewVideo(index) {
-        console.log(this.videoData);
+    loadNewVideo(index) { 
         // loand and play video from source
         this.videoPlayer.src = `video/${this.videoData[index].path}`
         this.videoPlayer.load()
